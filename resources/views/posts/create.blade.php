@@ -16,9 +16,9 @@
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
             <select class="form-control" name="post_creator">
-                  @foreach($posts as $post)
+                  {{--  @foreach($posts as $post)
                     <option value='{{$post['id']}}'>{{$post['post_creator']}}</option>
-                  @endforeach
+                  @endforeach  --}}
                   <option value='Ahmed'>Ahmed</option>
                   <option value='Mohamed'>Mohamed</option>
                   <option value='Ali'>Ali</option>
