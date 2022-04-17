@@ -27,6 +27,8 @@
             <label class="card-title" style="font-weight: bold">Name:</label>
             <span class="card-text">{{ $data['post_creator'] }}</span>
             <br>
+            <label class="card-title" style="font-weight: bold">Email:</label>
+            <span class="card-text">{{ $userEmail}}</span><br>
             <label class="card-title" style="font-weight: bold">Created At:</label>
             <span class="card-text">{{ $data['created_at'] }}</span><br>
             <a href="{{ route('post.index') }}" class="btn btn-primary">Back</a>

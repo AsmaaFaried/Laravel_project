@@ -16,12 +16,10 @@
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
             <select class="form-control" name="post_creator">
-                  {{--  @foreach($posts as $post)
-                    <option value='{{$post['id']}}'>{{$post['post_creator']}}</option>
-                  @endforeach  --}}
-                  <option value='Ahmed'>Ahmed</option>
-                  <option value='Mohamed'>Mohamed</option>
-                  <option value='Ali'>Ali</option>
+                  @foreach($users as $user)
+                    <option value='{{$user['name']}}'>{{$user['name']}}</option>
+                  @endforeach
+                 
 
             </select>
         </div>

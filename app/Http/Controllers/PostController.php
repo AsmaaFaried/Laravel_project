@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -16,24 +17,24 @@ class PostController extends Controller
         return view('posts.index',['posts'=>$posts]);
     }
     public function create(){
-        $posts=Post::all();
-        return view('posts.create',['posts'=>$posts]);
+        $users=User::all();
+        return view('posts.create',['users'=>$users]);
     }
     public function store(Request $request){
         $posts=Post::insert([
             'title' => $request->input('title'),
             'description'=>$request->input('descrip'),
             'post_creator'=>$request->input('post_creator'),
-            'created_at'=>date("Y-m-d h:i:s"),
         ]); 
-
-        return redirect()->route('post.index');
+        return to_route('post.index');
     }
     
 
     public function show($postId){
         $data=Post::find($postId);
-        return view('posts.details',['data'=>$data]);
+        $userdata=User::where('name',$data['post_creator'])->first();
+        $userEmail=$userdata['email'];
+        return view('posts.details',['data'=>$data,'userEmail'=>$userEmail]);
     }
  
     public function editPost($postId){
@@ -49,7 +50,6 @@ class PostController extends Controller
         $post->title =$request->input('title');
         $post->description = $request->input('descrip');
         $post->post_creator = $request->input('post_creator');
-        $post->created_at = date("Y-m-d h:i:s");
         $post->update();
         return redirect()->back()->with(['success'=>'Student Updated Successfully']);
     }
