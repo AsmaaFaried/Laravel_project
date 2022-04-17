@@ -19,6 +19,7 @@
                   @foreach($posts as $post)
                     <option value='{{$post['id']}}'>{{$post['post_creator']}}</option>
                   @endforeach
+                  <option value='Ahmed'>Ahmed</option>
 
             </select>
         </div>
