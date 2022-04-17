@@ -22,10 +22,9 @@
       </tr>
     </thead>
     <tbody>
-        {{--  <form method="post" action="">
-            @csrf
-            @method('delete')  --}}
+       
         @foreach ($posts as $post )
+       
       <tr>
         <td>{{ $post->id }}</th>
         <td>{{ $post->title }}</td>
@@ -40,13 +39,16 @@
             
             <a href="{{ route('post.show',['post'=>$post['id']]) }}" class="btn btn-info">View</a>
             <a href="{{ route('post.edit',['postId'=>$post['id']]) }}" class="btn btn-primary">Edit</a>
-            <a href="{{ route('post.delete',['postId'=>$post['id']]) }}"  class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-       
+            <form method="post" action="{{ route('post.delete',['postId'=>$post['id']]) }}" style="display: inline-block;">
+                @csrf
+                @method('delete')
+            <button type="submit"  class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
         </td>
     
       </tr>
       @endforeach
-    {{--  </form>  --}}
+    
     </tbody>
   </table>
  
