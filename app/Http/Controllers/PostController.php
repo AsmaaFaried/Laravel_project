@@ -24,6 +24,7 @@ class PostController extends Controller
             'title' => $request->input('title'),
             'description'=>$request->input('descrip'),
             'post_creator'=>$request->input('post_creator'),
+            'created_at'=>date("Y-m-d h:i:s"),
         ]); 
 
         return redirect()->route('post.index');
@@ -50,6 +51,7 @@ class PostController extends Controller
         $post->title =$request->input('title');
         $post->description = $request->input('descrip');
         $post->post_creator = $request->input('post_creator');
+        $post->created_at = date("Y-m-d h:i:s");
         $post->update();
         return redirect()->back()->with(['success'=>'Student Updated Successfully']);
     }
