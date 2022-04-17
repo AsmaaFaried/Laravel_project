@@ -30,7 +30,7 @@
             <label class="card-title" style="font-weight: bold">Email:</label>
             <span class="card-text">{{ $data->user->email}}</span><br>
             <label class="card-title" style="font-weight: bold">Created At:</label>
-            <span class="card-text">{{ $data->created_at }}</span><br>
+            <span class="card-text">{{ $data->created_at->isoFormat('dddd Do of MMMM YYYY h:mm:ss A') }}</span><br>
             <a href="{{ route('post.index') }}" class="btn btn-primary">Back</a>
         </div>
     </div>

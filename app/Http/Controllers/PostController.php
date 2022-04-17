@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 class PostController extends Controller
 {
    
    
     public function index(){
-        $posts=Post::all();
+        $posts=Post::paginate(5);
         return view('posts.index',['posts'=>$posts]);
     }
     public function create(){
@@ -19,7 +19,7 @@ class PostController extends Controller
         return view('posts.create',['users'=>$users]);
     }
     public function store(Request $request){
-        Post::insert([
+        Post::create([
             'title' => $request->input('title'),
             'description'=>$request->input('description'),
             'post_creator'=>$request->input('post_creator'),
@@ -27,7 +27,6 @@ class PostController extends Controller
         return to_route('post.index');
     }
     
-
     public function show($postId){
         $data=Post::find($postId);
         return view('posts.details',['data'=>$data]);

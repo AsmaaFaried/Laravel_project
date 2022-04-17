@@ -22,7 +22,9 @@
       </tr>
     </thead>
     <tbody>
-        
+        {{--  <form method="post" action="">
+            @csrf
+            @method('delete')  --}}
         @foreach ($posts as $post )
       <tr>
         <td>{{ $post->id }}</th>
@@ -32,14 +34,21 @@
         @else
         <td>Not Found</td>
         @endif
-        <td>{{ $post->created_at }}</td>
+        <td>{{ $post->created_at->isoFormat('YYYY-MM-D') }}</td>
+        
         <td>
+            
             <a href="{{ route('post.show',['post'=>$post['id']]) }}" class="btn btn-info">View</a>
             <a href="{{ route('post.edit',['postId'=>$post['id']]) }}" class="btn btn-primary">Edit</a>
             <a href="{{ route('post.delete',['postId'=>$post['id']]) }}"  class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+       
         </td>
+    
       </tr>
       @endforeach
+    {{--  </form>  --}}
     </tbody>
   </table>
+ 
+  {{ $posts->links() }}
 @endsection
