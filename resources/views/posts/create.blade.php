@@ -20,6 +20,8 @@
                     <option value='{{$post['id']}}'>{{$post['post_creator']}}</option>
                   @endforeach
                   <option value='Ahmed'>Ahmed</option>
+                  <option value='Mohamed'>Mohamed</option>
+                  <option value='Ali'>Ali</option>
 
             </select>
         </div>
