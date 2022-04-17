@@ -11,16 +11,16 @@
         @csrf
         <div class="mb-3">
             <label for="exampleFormControlInput1"  class="form-label">Title</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{$data['title'] }}" name="title">
+            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{$data->title }}" name="title">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descrip">{{ $data['description'] }}</textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description">{{ $data->description }}</textarea>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
-            <select class="form-control" value="{{$data['post_creator'] }}" name="post_creator">
-                <option value='{{$data['post_creator']}}'>{{$data['post_creator']}}</option>
+            <select class="form-control" value="{{$data->post_creator }}" name="post_creator">
+                <option value='{{$data->post_creator}}'>{{$data->post_creator}}</option>
             </select>
         </div>
         {{--  <div class="mb-3">

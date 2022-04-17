@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
-use Attribute;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class PostController extends Controller
 {
@@ -21,9 +19,9 @@ class PostController extends Controller
         return view('posts.create',['users'=>$users]);
     }
     public function store(Request $request){
-        $posts=Post::insert([
+        Post::insert([
             'title' => $request->input('title'),
-            'description'=>$request->input('descrip'),
+            'description'=>$request->input('description'),
             'post_creator'=>$request->input('post_creator'),
         ]); 
         return to_route('post.index');
@@ -32,9 +30,7 @@ class PostController extends Controller
 
     public function show($postId){
         $data=Post::find($postId);
-        $userdata=User::where('name',$data['post_creator'])->first();
-        $userEmail=$userdata['email'];
-        return view('posts.details',['data'=>$data,'userEmail'=>$userEmail]);
+        return view('posts.details',['data'=>$data]);
     }
  
     public function editPost($postId){
@@ -42,13 +38,13 @@ class PostController extends Controller
         return view('posts.update',['postId'=>$postId,'data'=>$data]);
     }
     public function destroy($postId){
-        $post=Post::find($postId)->delete();
-       return redirect()->back()->with(['success'=>"Post Deleted successfully."]);
+        Post::find($postId)->delete();
+        return redirect()->back()->with(['success'=>"Post Deleted successfully."]);
     }
     public function update(Request $request,$postId){
         $post = Post::find($postId);
         $post->title =$request->input('title');
-        $post->description = $request->input('descrip');
+        $post->description = $request->input('description');
         $post->post_creator = $request->input('post_creator');
         $post->update();
         return redirect()->back()->with(['success'=>'Student Updated Successfully']);

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
             $table->text('description');
             $table->string('post_creator');
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('posts');
     }
 };

@@ -11,23 +11,19 @@
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descrip"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
             <select class="form-control" name="post_creator">
                   @foreach($users as $user)
-                    <option value='{{$user['name']}}'>{{$user['name']}}</option>
+                    <option value='{{$user->name}}'>{{$user->name}}</option>
                   @endforeach
                  
 
             </select>
         </div>
-        
-        {{--  <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
-            <input type="text" class="form-control" id="exampleFormControlTextarea1" name="post_creator">
-        </div>  --}}
+
     <a href="{{ route('post.index') }}" class="btn btn-warning">Back</a>
     <button class="btn btn-success">Create</button>
     </form>
