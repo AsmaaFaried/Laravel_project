@@ -32,14 +32,12 @@ class PostController extends Controller
     
 
     public function show($postId){
-        $postDetails=Post::find($postId);
-        $data = json_decode($postDetails, true);
+        $data=Post::find($postId);
         return view('posts.details',['data'=>$data]);
     }
  
     public function editPost($postId){
-        $postDetails=Post::find($postId);
-        $data = json_decode($postDetails, true);
+        $data=Post::find($postId);
         return view('posts.update',['postId'=>$postId,'data'=>$data]);
     }
     public function destroy($postId){
