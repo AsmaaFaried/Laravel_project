@@ -2,7 +2,7 @@
 @section('title') Create @endsection
 
 @section('content')
-   
+
     <form method="POST" action="{{ route('post.store') }}">
         @csrf
         <div class="mb-3">
@@ -17,9 +17,9 @@
             <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
             <select class="form-control" name="post_creator">
                   @foreach($users as $user)
-                    <option value='{{$user->name}}'>{{$user->name}}</option>
+                    <option value='{{$user->id}}'>{{$user->name}}</option>
                   @endforeach
-                 
+
 
             </select>
         </div>

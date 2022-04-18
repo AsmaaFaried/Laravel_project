@@ -11,7 +11,7 @@
         {{ session()->get('success') }}
     </div>
     @endif
-    
+
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -22,9 +22,9 @@
       </tr>
     </thead>
     <tbody>
-       
+
         @foreach ($posts as $post )
-       
+
       <tr>
         <td>{{ $post->id }}</th>
         <td>{{ $post->title }}</td>
@@ -34,9 +34,9 @@
         <td>Not Found</td>
         @endif
         <td>{{ $post->created_at->isoFormat('YYYY-MM-D') }}</td>
-        
+
         <td>
-            
+
             <a href="{{ route('post.show',['post'=>$post['id']]) }}" class="btn btn-info">View</a>
             <a href="{{ route('post.edit',['postId'=>$post['id']]) }}" class="btn btn-primary">Edit</a>
             <form method="post" action="{{ route('post.delete',['postId'=>$post['id']]) }}" style="display: inline-block;">
@@ -45,12 +45,12 @@
             <button type="submit"  class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
         </form>
         </td>
-    
+
       </tr>
       @endforeach
-    
+
     </tbody>
   </table>
- 
+
   {{ $posts->links() }}
 @endsection

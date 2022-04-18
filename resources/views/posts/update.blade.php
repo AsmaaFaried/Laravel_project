@@ -7,6 +7,11 @@
     {{ session()->get('success') }}
 </div>
 @endif
+@if(session()->has('error'))
+<div class="alert alert-danger">
+    {{ session()->get('error') }}
+</div>
+@endif
     <form method="post" action="{{ route('post.update',['postId'=>$postId]) }}">
         @csrf
         @method('put')
