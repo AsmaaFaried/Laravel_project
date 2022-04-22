@@ -5,7 +5,7 @@
 <div class="text-center">
     <a href="{{ route('post.create') }}" class="mt-4 btn btn-success">Create Post</a>
 </div>
-<table class=" table mt-4">
+<table class=" table mt-4 table-dark">
     @if(session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
@@ -16,9 +16,10 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
+        <th scope="col">Slug</th>
         <th scope="col">Posted By</th>
         <th scope="col">Created At</th>
-        <th scope="col">Actions</th>
+        <th scope="col" class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,7 @@
       <tr>
         <td>{{ $post->id }}</th>
         <td>{{ $post->title }}</td>
+        <td>{{ $post->slug }}</td>
         @if($post->user)
         <td>{{ $post->user->name}}</td>
         @else
@@ -35,14 +37,14 @@
         @endif
         <td>{{ $post->created_at->isoFormat('YYYY-MM-D') }}</td>
 
-        <td>
+        <td >
 
-            <a href="{{ route('post.show',['post'=>$post['id']]) }}" class="btn btn-info">View</a>
-            <a href="{{ route('post.edit',['postId'=>$post['id']]) }}" class="btn btn-primary">Edit</a>
+            <a href="{{ route('post.show',['slug'=>$post['slug']]) }}" class="btn btn-info mx-4">View</a>
+            <a href="{{ route('post.edit',['slug'=>$post['slug']]) }}" class="btn btn-primary mx-4">Edit</a>
             <form method="post" action="{{ route('post.delete',['postId'=>$post['id']]) }}" style="display: inline-block;">
                 @csrf
                 @method('delete')
-            <button type="submit"  class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+            <button type="submit"  class="btn btn-danger mx-4" onclick="return confirm('Are you sure?')">Delete</button>
         </form>
         </td>
 

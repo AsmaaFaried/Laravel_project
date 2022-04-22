@@ -53,6 +53,7 @@
     </div>
 
 @foreach ($comments as $comment )
+
 <br>
 
     <div class="card comments" >
@@ -73,7 +74,7 @@
             <label class="card-title">Comment:</label>
             <span class="card-text">{{ $comment->comment }}</span><br>
             <label class="card-title">Created At:</label>
-            <span class="card-text">{{ $comment->created_at->isoFormat('dddd Do of MMMM YYYY h:mm:ss A') }}</span>
+            <span class="card-text">{{ $comment->created_at->addSeconds()->diffForHumans();   }}</span>
             <br>
             <form method="post" action="{{ route('delete.comment',['postId'=>$data->id,'commentId'=>$comment['id']]) }}" style="display: inline-block;">
                 @csrf

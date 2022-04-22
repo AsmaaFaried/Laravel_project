@@ -12,7 +12,7 @@
     {{ session()->get('error') }}
 </div>
 @endif
-    <form method="post" action="{{ route('post.update',['postId'=>$postId]) }}">
+    <form method="post" action="{{ route('post.update',['slug'=>$slug]) }}">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -29,10 +29,7 @@
                 <option value='{{$data->post_creator}}'>{{$data->post_creator}}</option>
             </select>
         </div>
-        {{--  <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
-            <input type="text" class="form-control" id="exampleFormControlTextarea1" value="{{$data['post_creator'] }}" name="post_creator">
-        </div>  --}}
+
     <a href="{{ route('post.index') }}" class="btn btn-warning">Back</a>
     <button class="btn btn-primary">Update</button>
     </form>
