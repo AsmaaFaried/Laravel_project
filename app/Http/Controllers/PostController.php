@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\PruneOldPostsJob;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -75,5 +76,9 @@ class PostController extends Controller
         else{
             return redirect()->back()->with(['error'=>'Failed to update this post']);
         }
+    }
+    public  function deleteOldPosts(){
+        PruneOldPostsJob::dispatch();
+        return redirect()->back()->with(['success'=>'Posts deleted successfully']);
     }
 }

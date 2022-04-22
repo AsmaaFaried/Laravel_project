@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/posts/create',[PostController::class,'create'])->name('post.create');
     Route::post('/posts/store',[PostController::class,'store'])->name('post.store');
     Route::get('/posts/{slug}',[PostController::class,'show'])->name('post.show');
-
     Route::get('/posts/editPost/{slug}',[PostController::class,'editPost'])->name('post.edit');
     Route::put('/posts/update/{slug}',[PostController::class,'update'])->name('post.update');
     Route::delete('/posts/delete/{postId}',[PostController::class,'destroy'])->name('post.delete');
@@ -29,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // });
+Route::delete('/oldPosts', [PostController::class, 'deleteOldPosts'])->name('old.posts');
 
 Auth::routes();
 

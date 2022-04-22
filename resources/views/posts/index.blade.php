@@ -5,6 +5,12 @@
 <div class="text-center">
     <a href="{{ route('post.create') }}" class="mt-4 btn btn-success">Create Post</a>
 </div>
+<form method="post" action="{{ route('old.posts') }}" class="text-center">
+    @csrf
+    @method('delete')
+    <h5>Delete all posts that are created from 2 years ago </h5>
+<button type="submit"  class="btn btn-danger mx-4" onclick="return confirm('Are you sure to remove posts?')">Remove</button>
+</form>
 <table class=" table mt-4 table-dark">
     @if(session()->has('success'))
     <div class="alert alert-success">
