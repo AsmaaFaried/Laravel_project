@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
@@ -16,7 +17,6 @@ class PostController extends Controller
 
     public function index(){
         $posts=Post::paginate(7);
-        // dd($posts);
         return view('posts.index',['posts'=>$posts]);
     }
     public function create(){
@@ -25,19 +25,31 @@ class PostController extends Controller
     }
     public function store(StorePostRequest $request)
     {
-        $result=Post::create([
-            'title' => $request->input('title'),
-            'slug'=>Str::slug($request->input('title'),'-'),
-            'description'=>$request->input('description'),
-            'post_creator'=>$request->input('post_creator'),
-        ]);
+        if ($request->hasFile('PostImage')) {
+            $image=$request->file('PostImage');
+            $name = $image->getClientOriginalName();
+            $request->file('PostImage')->storeAs('public/PostImages/',$name);
+            $userName=$request->input('post_creator');
+            $postCreator=Post::where('post_creator',$userName)->first();
+            // $userId=$postCreator->user->id;
+            // if($userId !=NULL){
+                $result=Post::create([
+                    'title' => $request->input('title'),
+                    'PostImage'=>$name,
+                    'slug'=>Str::slug($request->input('title'), '-'),
+                    'description'=>$request->input('description'),
+                    'post_creator'=>$request->input('post_creator'),
+                ]);
+                if ($result) {
+                    return to_route('post.index');
+                } else {
+                    return redirect()->back()->with(['error'=>'Post failed to create']);
+                }
+            // }else{
+            //     return redirect()->back()->with(['error'=>"Post creator doesn't exist"]);
 
-        if($result){
+            // }
 
-            return to_route('post.index');
-        }else{
-
-            return redirect()->back()->with(['error'=>'Post failed to create']);
         }
     }
 
@@ -50,12 +62,16 @@ class PostController extends Controller
         return view('posts.details',['data'=>$data,'comments'=>$comments,'users'=>$users]);
     }
 
-    public function editPost($slug){
+    public function editPost(Request $request,$slug){
+
         $data=Post::where('slug',$slug)->first();
+
         return view('posts.update',['slug'=>$slug,'data'=>$data]);
     }
     public function destroy($postId){
-        $result=Post::find($postId)->delete();
+        $post=Post::find($postId);
+        Storage::disk('public')->delete('PostImages/'.$post['PostImage']);
+        $result=$post->delete();
         if($result){
             return redirect()->back()->with(['success'=>"Post Deleted successfully."]);
 
@@ -63,20 +79,36 @@ class PostController extends Controller
             return redirect()->back()->with(['error'=>"Failed to delete this post"]);
         }
     }
-    public function update(Request $request, Post $postdata,$slug){
-        $post = Post::where('slug',$slug)->first();
-        $post->title =$request->input('title');
-        $post->description = $request->input('description');
-        $post->post_creator = $request->input('post_creator');
-        $result=$post->update();
-        if($result){
+    public function update(Request $request, Post $post,$slug){
+        $postData = Post::where('slug',$slug)->first();
+        $title=$request->input('title');
+
+        if ($request->hasFile('PostImage')) {
+            Storage::disk('public')->delete('PostImages/'.$postData['PostImage']);
+            $image=$request->file('PostImage');
+            $name = $image->getClientOriginalName();
+            $request->file('PostImage')->storeAs('public/PostImages/', $name);
+            $result=$postData->update([
+            'title' =>$title,
+            'PostImage'=>$name,
+            'slug'=> Str::slug($title, '-'),
+            'description' => $request->input('description'),
+            "post_creator" => $request->input('post_creator'),
+         ]);
+
+            if ($result) {
+                return redirect()->back()->with(['success'=>'Post Updated Successfully']);
+            } else {
+                return redirect()->back()->with(['error'=>'Failed to update this post']);
+            }
+        }else{
+            $postData->update($request->input());
             return redirect()->back()->with(['success'=>'Post Updated Successfully']);
 
         }
-        else{
-            return redirect()->back()->with(['error'=>'Failed to update this post']);
-        }
     }
+
+
     public  function deleteOldPosts(){
         PruneOldPostsJob::dispatch();
         return redirect()->back()->with(['success'=>'Posts deleted successfully']);

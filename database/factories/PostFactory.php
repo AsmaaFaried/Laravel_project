@@ -24,6 +24,7 @@ class PostFactory extends Factory
         $title=$this->faker->text(20);
         return [
             'title'=>$title,
+            'PostImage'=>$this->faker->image(storage_path('app\public\PostImages'), 600, 400),
             'slug'=>Str::slug($title),
             'user_id'=>User::factory(),
             'description'=>$this->faker->text(500),

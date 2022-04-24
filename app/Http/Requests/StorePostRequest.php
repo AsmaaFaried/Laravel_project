@@ -23,7 +23,10 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+
+
         return [
+            'PostImage' => 'required|image|mimes:jpg,png',
             'title'=>['required','min:3',
             Rule::unique('posts', 'title')->ignore($this->post)
             ],

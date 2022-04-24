@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
+            $table->string('PostImage');
             $table->string('slug');
             $table->text('description');
             $table->string('post_creator');
